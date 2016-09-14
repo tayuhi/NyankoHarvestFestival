@@ -23,7 +23,7 @@ var game = cc.Layer.extend({
     //  var backgroundLayer = cc.LayerGradient.create(cc.color(0,0,0,255), cc.color(0x46,0x82,0xB4,255));
 
     //森の背景
-    var background = new cc.Sprite(res.background_png);
+    var background = new cc.Sprite(res.game_bg);
     var size = cc.director.getWinSize();
     background.setPosition(cc.p(size.width / 2.0, size.height / 2.0));
     var backgroundLayer = cc.Layer.create();
@@ -35,7 +35,7 @@ var game = cc.Layer.extend({
     this.addChild(itemsLayer);
 
     //雲
-    this.schedule(this.addCloud, 0.5);
+    this.schedule(this.addCloud, 3.5);
 
     //ショッピングカートを操作するレイヤー
     topLayer = cc.Layer.create();
@@ -149,7 +149,7 @@ var Cloud = cc.Sprite.extend({
     onEnter: function() {
         this._super();
         this.setPosition(600, 280);
-        var moveAction = cc.MoveTo.create(2.5, new cc.Point( -3500, -50));
+        var moveAction = cc.MoveTo.create(10.5, new cc.Point( -100, 270));
         this.runAction(moveAction);
         this.scheduleUpdate();
     },

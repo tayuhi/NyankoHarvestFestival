@@ -6,6 +6,7 @@ var res = {
   strawberry_png : "res/strawberry.png",
   apple_png : "res/apple.png",
   bug_png : "res/bug.png",
+  game_bg : "res/game_bg.png",
 //  leftbutton_png: "res/leftbutton.png",
 //  rightbutton_png: "res/rightbutton.png",
   background_png: "res/background.png",
