@@ -42,7 +42,7 @@ var game = cc.Layer.extend({
     this.addChild(topLayer);
     catS0 = cc.Sprite.create(res.catS0_png);
     topLayer.addChild(catS0, 0);
-    catS0.setPosition(240, 24);
+    catS0.setPosition(240, 60);
     this.schedule(this.addItem, 1);
     //タッチイベントのリスナー追加
     cc.eventManager.addListener(touchListener, this);
