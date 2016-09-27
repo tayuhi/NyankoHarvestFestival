@@ -1,12 +1,13 @@
 var itemsLayer;
 var catS0;
+var basket0;
 var xSpeed = 0; //カートの移動速度iei
 
 var detectedX;　 //現在タッチしているX座標
 var savedX;　 //前回タッチしていたX座標
 var touching = false;　 //タッチ状況管理用flag
 var cloud;  //雲
-
+//var delay = cc.delayTime(1);
 var gameScene = cc.Scene.extend({
   onEnter: function() {
     this._super();
@@ -40,10 +41,16 @@ var game = cc.Layer.extend({
     //ショッピングカートを操作するレイヤー
     topLayer = cc.Layer.create();
     this.addChild(topLayer);
+
+    catS2 = cc.Sprite.create(res.basket2);
+    topLayer.addChild(catS2, 0);
+    catS2.setPosition(240, 60);
+    this.schedule(this.addItem, 1);
     catS0 = cc.Sprite.create(res.catS0_png);
     topLayer.addChild(catS0, 0);
     catS0.setPosition(240, 60);
     this.schedule(this.addItem, 1);
+
     //タッチイベントのリスナー追加
     cc.eventManager.addListener(touchListener, this);
     //カートの移動のため　Update関数を1/60秒ごと実行させる　
@@ -78,6 +85,7 @@ var game = cc.Layer.extend({
         xSpeed = -2;
       }
       if (deltaX < 0) {
+
         xSpeed = 2;
       }
       //saveXに今回のX座標を代入し、onTouchMovedイベントで
@@ -85,13 +93,21 @@ var game = cc.Layer.extend({
       savedX = detectedX;
       if (xSpeed > 0) {
         catS0.setFlippedX(true);
+        catS2.setFlippedX(true);
       }
       if (xSpeed < 0) {
         catS0.setFlippedX(false);
+        catS2.setFlippedX(false);
+
       }
       catS0.setPosition(catS0.getPosition().x + xSpeed, catS0.getPosition().y);
+      catS2.setPosition(catS2.getPosition().x + xSpeed, catS2.getPosition().y);
+
+
     }
   }
+
+
 
 
 });
@@ -131,10 +147,16 @@ var Item = cc.Sprite.extend({
       this.isBomb) {
       gameLayer.removeItem(this);
       console.log("BOMB");
+      catS0 = cc.Sprite.create(res.catkemusi);
+      topLayer.addChild(catS0, 0);
+      catS0.setPosition(240, 60);
+      this.schedule(this.addItem, 1);
     }
     //地面に落ちたアイテムは消去
-    if (this.getPosition().y < -30) {
-      gameLayer.removeItem(this)
+    if (this.getPosition().y < +10) {
+
+      gameLayer.removeItem(this);
+
       //1秒たったら削除する課題がある アニメーション    cc.delayTimeが答え
     }
   }
@@ -174,6 +196,7 @@ var touchListener = cc.EventListener.create({
   onTouchMoved: function(touch, event) {
     //現在タッチ中のX座標を保持する変数へ代入
     detectedX = touch.getLocation().x;
+
   },
   onTouchEnded: function(touch, event) {
     //タッチflagをOFF
